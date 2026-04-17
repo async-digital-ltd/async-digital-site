@@ -270,7 +270,11 @@ body {
 
   .headline {
     font-size: 36px;
-    max-width: 24ch;
+    max-width: 100%;
+  }
+
+  .tagline {
+    max-width: 100%;
   }
 
   .wrap {
