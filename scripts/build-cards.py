@@ -165,12 +165,16 @@ def front_svg(font: TTFont, person: dict) -> str:
     leading_meta = 1.8  # gap between meta lines
 
     regular = TTFont(FONT_DIR / "Inter-Regular.ttf")
+    semibold = TTFont(FONT_DIR / "Inter-SemiBold.ttf")
     bold = font  # passed-in
+
+    wordmark_cap = 2.2  # slightly below meta so the name stays the focal point
 
     name_run = build_run(bold, person["name"], name_cap)
     gdc_run = build_run(regular, person["gdc"], meta_cap)
     email_run = build_run(regular, person["email"], meta_cap)
     phone_run = build_run(regular, person["phone"], meta_cap)
+    wordmark_run = build_run(semibold, "Async Digital", wordmark_cap)
 
     # Layout: left margin 6mm (safe 3mm + 3mm breathing)
     left = 6
@@ -179,51 +183,74 @@ def front_svg(font: TTFont, person: dict) -> str:
     baseline_gdc = baseline_name + 9
     baseline_email = baseline_gdc + (meta_cap + leading_meta)
     baseline_phone = baseline_email + (meta_cap + leading_meta)
+    # Wordmark sits at the card foot, baseline 4mm clear of the trim edge so
+    # cap and descenders both stay inside the 3mm safe zone.
+    baseline_wordmark = TRIM_H - 4
 
-    def render(run: GlyphRun, baseline: float) -> str:
+    def render(run: GlyphRun, baseline: float, fill: str = PRIMARY) -> str:
         return (
-            f'<g transform="translate({left},{baseline})" fill="{PRIMARY}">'
+            f'<g transform="translate({left},{baseline})" fill="{fill}">'
             f'{"".join(run.paths)}</g>'
         )
 
-    # Top-right symbol tag — small mark so the brand is visible on the contact side,
-    # not just the flip side. Right-aligned at the same 6mm safe margin.
-    mark_w = 12
-    mark_x = TRIM_W - 6 - mark_w
-    mark_y = 6
-    mark_scale = mark_w / 100
+    # Oversized mark bled off the top-right corner so only its bottom-left quadrant
+    # shows on the card. Low opacity reads as brand texture rather than a literal logo,
+    # letting the text column on the left stay the actual focal point. The mark extends
+    # into the bleed, so it survives any trim variance cleanly.
+    mark_scale_mm = 1.2  # 1 mark unit = 1.2mm → mark is 120mm wide, 108mm tall on card
+    mark_center_x = TRIM_W  # centre the mark's 100-unit box on the top-right corner...
+    mark_center_y = 0        # ...of the card trim
+    mark_offset_x = mark_center_x - 50 * mark_scale_mm
+    mark_offset_y = mark_center_y - 50 * mark_scale_mm
     mark_rects = "\n    ".join(
-        f'<rect x="{x * mark_scale + mark_x:.3f}" y="{y * mark_scale + mark_y:.3f}" '
-        f'width="{w * mark_scale:.3f}" height="{h * mark_scale:.3f}" '
-        f'rx="{(h * mark_scale) / 2:.3f}"/>'
+        f'<rect x="{x * mark_scale_mm + mark_offset_x:.3f}" y="{y * mark_scale_mm + mark_offset_y:.3f}" '
+        f'width="{w * mark_scale_mm:.3f}" height="{h * mark_scale_mm:.3f}" '
+        f'rx="{(h * mark_scale_mm) / 2:.3f}"/>'
         for (x, y, w, h) in BARS
     )
 
     inner = (
+        f'  <g fill="{PRIMARY}" opacity="0.15">\n    {mark_rects}\n  </g>\n'
         f'  {render(name_run, baseline_name)}\n'
         f'  {render(gdc_run, baseline_gdc)}\n'
         f'  {render(email_run, baseline_email)}\n'
         f'  {render(phone_run, baseline_phone)}\n'
-        f'  <g fill="{PRIMARY}">\n    {mark_rects}\n  </g>'
+        f'  {render(wordmark_run, baseline_wordmark, fill=MUTED)}'
     )
     return card_wrapper(inner)
 
 
 def back_svg() -> str:
-    """Back: symbol centred, filling ~28mm square within the card."""
-    mark_w = 28
-    cx = TRIM_W / 2
-    cy = TRIM_H / 2
-    scale = mark_w / 100  # BARS are authored in a 100-unit box
-    x0 = cx - mark_w / 2
-    y0 = cy - mark_w / 2
+    """Back: symbol + tagline. Mark shifted up so mark+tagline composition
+    sits optically centred in the card."""
+    regular = TTFont(FONT_DIR / "Inter-Regular.ttf")
+    tagline_cap = 2.5
+    tagline_text = "Automations for dental practices."
+    tagline_run = build_run(regular, tagline_text, tagline_cap)
+
+    mark_w = 24
+    mark_gap = 7  # clear space between mark bottom and tagline cap top
+    total_h = mark_w + mark_gap + tagline_cap
+    top = (TRIM_H - total_h) / 2  # optical top of the composition
+
+    scale = mark_w / 100
+    x0 = TRIM_W / 2 - mark_w / 2
+    y0 = top
     rects = "\n    ".join(
         f'<rect x="{x * scale + x0:.3f}" y="{y * scale + y0:.3f}" '
         f'width="{w * scale:.3f}" height="{h * scale:.3f}" '
         f'rx="{(h * scale) / 2:.3f}"/>'
         for (x, y, w, h) in BARS
     )
-    inner = f'  <g fill="{PRIMARY}">\n    {rects}\n  </g>'
+
+    tagline_x = (TRIM_W - tagline_run.advance_mm) / 2
+    tagline_y = top + mark_w + mark_gap + tagline_cap
+
+    inner = (
+        f'  <g fill="{PRIMARY}">\n    {rects}\n  </g>\n'
+        f'  <g transform="translate({tagline_x:.3f},{tagline_y:.3f})" fill="{MUTED}">'
+        f'{"".join(tagline_run.paths)}</g>'
+    )
     return card_wrapper(inner)
 
 
