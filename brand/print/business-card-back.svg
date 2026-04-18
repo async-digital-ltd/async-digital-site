@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="91mm" height="61mm" viewBox="-3 -3 91 61">
+  <rect x="-3" y="-3" width="91" height="61" fill="#FDFBF7"/>
+  <g fill="#8B3A2A">
+    <rect x="29.900" y="16.300" width="16.800" height="2.800" rx="1.400"/>
+    <rect x="34.100" y="20.220" width="21.000" height="2.800" rx="1.400"/>
+    <rect x="28.500" y="24.140" width="12.600" height="2.800" rx="1.400"/>
+    <rect x="32.700" y="28.060" width="22.400" height="2.800" rx="1.400"/>
+    <rect x="36.900" y="31.980" width="9.800" height="2.800" rx="1.400"/>
+    <rect x="31.300" y="35.900" width="18.200" height="2.800" rx="1.400"/>
+  </g>
+  <line x1="0" y1="-1" x2="0" y2="-4" stroke="#000" stroke-width="0.2"/>
+  <line x1="-1" y1="0" x2="-4" y2="0" stroke="#000" stroke-width="0.2"/>
+  <line x1="85" y1="-1" x2="85" y2="-4" stroke="#000" stroke-width="0.2"/>
+  <line x1="86" y1="0" x2="89" y2="0" stroke="#000" stroke-width="0.2"/>
+  <line x1="0" y1="56" x2="0" y2="59" stroke="#000" stroke-width="0.2"/>
+  <line x1="-1" y1="55" x2="-4" y2="55" stroke="#000" stroke-width="0.2"/>
+  <line x1="85" y1="56" x2="85" y2="59" stroke="#000" stroke-width="0.2"/>
+  <line x1="86" y1="55" x2="89" y2="55" stroke="#000" stroke-width="0.2"/>
+</svg>
