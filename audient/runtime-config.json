@@ -1,0 +1,6 @@
+{
+  "schema": 1,
+  "transcription_enabled": true,
+  "transcription_model": "default",
+  "min_supported_build": 1
+}
