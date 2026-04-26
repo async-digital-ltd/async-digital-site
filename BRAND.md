@@ -15,6 +15,10 @@ Four files under `brand/` hold the decisions. Everything else is applied work.
 
 If you're editing copy, start at voice — then check positioning if Audient might come up. If you're placing colour or type, start at colour or typography.
 
+## For coding agents
+
+If you're a coding agent (Claude, Stitch, Copilot) building UI on this repo, read [`DESIGN.md`](DESIGN.md) at the project root. It's a structured derived view of the four foundation files above plus the runtime tokens in `assets/brand.css`, formatted to the [google-labs-code/design.md](https://github.com/google-labs-code/design.md) spec so any agent that knows the spec can consume it without re-reading prose. Humans should keep reading this file.
+
 ## Logo
 
 ### About the mark
@@ -160,8 +164,9 @@ If a brand value changes, the update order is:
 1. The note in the knowledge vault (`projects/incubating/async-digital-brand-foundation.md`). That's the decision log.
 2. The relevant file under `brand/` here. That's the documentation.
 3. `assets/brand.css` (or `assets/brand.js`). That's the code downstream consumers read.
+4. `DESIGN.md` at the project root. That's the agent-facing derived view.
 
-Changing step 3 without steps 1 and 2 leaves the documentation lying. Changing steps 1 and 2 without step 3 leaves the live site wrong.
+Changing step 3 without steps 1 and 2 leaves the documentation lying. Changing steps 1 and 2 without step 3 leaves the live site wrong. Forgetting step 4 leaves coding agents producing on-brand-looking output that drifts from the runtime — a future PR will reconcile it.
 
 ## Versioning and breakage
 
