@@ -219,6 +219,56 @@ main.wrap > .card + .card {
   font-size: var(--size-small);
 }
 
+/* ---------- Audient band (full-bleed Coming Soon ad) ---------- */
+
+.audient-band {
+  margin-top: 16px;
+  background: var(--accent);
+  color: white;
+  padding: 80px 0 0;
+}
+
+.audient-band-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  padding-left: 46px;
+  padding-right: 24px;
+}
+
+.audient-band-eyebrow {
+  margin: 0 0 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: var(--size-small);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.audient-band-title {
+  margin: 0 0 16px;
+  font-size: var(--size-h1);
+  line-height: var(--lh-snug);
+  font-weight: var(--weight-medium);
+  color: white;
+  letter-spacing: -0.02em;
+}
+
+.audient-band-body {
+  margin: 0 0 28px;
+  max-width: 56ch;
+  line-height: var(--lh-relaxed);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.audient-band-actions {
+  margin: 0;
+}
+
+@media (max-width: 720px) {
+  .audient-band {
+    padding: 56px 0 0;
+  }
+}
+
 /* ---------- Process ---------- */
 
 .steps {
@@ -362,6 +412,43 @@ main.wrap > .card + .card {
 
 .footer-link:hover {
   border-bottom-color: rgba(0,0,0,0.18);
+}
+
+/* ---------- Site footer (dark variant for homepage) ---------- */
+
+.site-footer-dark {
+  background: var(--accent);
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 0;
+  padding: 56px 0 48px;
+  border-top: 0;
+}
+
+.site-footer-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.site-footer-dark .footer-primary {
+  color: white;
+}
+
+.site-footer-dark .footer-legal {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.site-footer-dark .footer-sep {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.site-footer-dark .footer-link {
+  color: white;
+  border-bottom-color: rgba(255, 255, 255, 0.3);
+}
+
+.site-footer-dark .footer-link:hover {
+  border-bottom-color: rgba(255, 255, 255, 0.6);
 }
 
 /* ---------- Responsive ---------- */
