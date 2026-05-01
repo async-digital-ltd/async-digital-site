@@ -711,7 +711,6 @@ main.wrap > .card + .card {
 .audient-mark {
   display: block;
   flex-shrink: 0;
-  border-radius: 4px;
 }
 
 .ship-card__pill {
