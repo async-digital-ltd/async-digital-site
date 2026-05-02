@@ -259,20 +259,6 @@ main.wrap > .card + .card {
   text-decoration: underline;
 }
 
-/* ---------- Specialties strip (apex) ---------- */
-
-.specialties {
-  text-align: center;
-}
-
-.specialties__list {
-  margin: 0;
-  font-size: var(--size-small);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--muted);
-}
-
 /* ---------- Process ---------- */
 
 .steps {
